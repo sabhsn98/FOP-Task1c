@@ -43,7 +43,7 @@ const int  UP(72);			//up arrow
 const int  DOWN(80); 		//down arrow
 const int  RIGHT(77);		//right arrow
 const int  LEFT(75);		//left arrow
-
+bool pillDestroy = false;
 //defining the other command letters
 const char zombie('Z');
 
@@ -107,14 +107,14 @@ int main()
 		else
 			message = "INVALID KEY!";	//set 'Invalid key' message
 		paintGame(grid, message, lifeText, pillText);		//display game info, modified grid and messages
-	} while (!wantsToQuit(key) && lives != 0 && pillsLeft > 0);		//while user does not want to quit
+	} while (!wantsToQuit(key) && lives != 0 && (pillsLeft > 0 || zombies.size()>0));		//while user does not want to quit
 	if (lives == 0) {
 		message = "You Died!";
 	}
 	else if (key == 'Q') {
 		message = "You Quit";
 	}
-	else if (zombies.size() == 0){
+	else{
 		
 		if (lives > 9) {
 			message = "You won with 1  lives left";
@@ -218,6 +218,7 @@ void setInitialMazeStructure(char maze[][SIZEX])
 		}
 
 	}
+	
 
 
 }
@@ -236,6 +237,7 @@ void updateGrid(char grid[][SIZEX], char maze[][SIZEX], const Item spot, vector<
 		for (int i(0); i < zombies.size(); i++)
 			placeItem(grid, zombies[i]);
 	}
+
 }
 
 void setMaze(char grid[][SIZEX], char maze[][SIZEX], const Item spot)
@@ -246,6 +248,18 @@ void setMaze(char grid[][SIZEX], char maze[][SIZEX], const Item spot)
 		
 	if (maze[spot.y][spot.x] == PILL) {
 		maze[spot.y][spot.x] = ' ';
+	}
+	if (pillDestroy) {
+		for (int i(0); i < SIZEX; i++) {
+			for (int k(0); k < SIZEY; k++) {
+				if (maze[k][i] == PILL) {
+					maze[k][i] = TUNNEL;
+					grid[k][i] = TUNNEL;
+				}
+
+			}
+		}
+		pillDestroy = false;
 	}
 
 }
@@ -294,15 +308,9 @@ void updateGameData(const char g[][SIZEX], Item& spot, const int key, string& me
 	}
 
 	if (eat) {
-		for (int i(0); i < SIZEX; i++) {
-			for (int k(0); k < SIZEY; k++) {
-				if (g[k][i] == PILL) {
-					g[k][i] == TUNNEL;
-				}
-
-			}
-		}
-
+		pillDestroy = true;
+		pillsLeft = 0;
+		pillText[17] = static_cast<char>(pillsLeft + 48);
 
 	}
 
