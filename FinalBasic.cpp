@@ -152,15 +152,16 @@ int main()
 
 void loadMenu() {
 
-
+	void showMessage(const WORD backColour, const WORD textColour, int x, int y, const string message);
 
 	void GetandSetScore();
 
 	string time = GetTime();
 	string day = GetDate();
 
-	cout << "\n\t\t\t    Time: " << time << "\n";
-	cout << "\n\t\t\t    Date: " << day << "\n";
+
+	showMessage(clBlack, clWhite, 40, 1, "Date: " + GetDate());
+	showMessage(clBlack, clWhite, 40, 2, "Time: " + GetTime());
 
 	system("color FF");
 	cout << "\n\n\t\t\t\t  +++++++++++\n";  //Title
