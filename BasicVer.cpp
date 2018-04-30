@@ -118,7 +118,7 @@ int main()
 		else
 			message = "INVALID KEY!";	//set 'Invalid key' message
 		paintGame(grid, message, lifeText, pillText);		//display game info, modified grid and messages
-	} while (!wantsToQuit(key) && (pillsLeft > 0 || zombies.size()>0));		//while user does not want to quit
+	} while ((!wantsToQuit(key) && (pillsLeft > 0 || zombies.size()>0)) && lives > 0);		//while user does not want to quit
 	if (lives == 0) {
 		message = "You Died!";
 	}
