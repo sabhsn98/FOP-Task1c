@@ -52,7 +52,7 @@ struct Item {
 };
 
 int score = -1;
-int newScore = -1 ;
+int newScore = -1;
 string name;
 //---------------------------------------------------------------------------
 //----- run game
@@ -60,6 +60,7 @@ string name;
 
 int main()
 {
+	SetConsoleTitle("Spot and Zombies Game - FoP 2017-18"); // set the window title
 	//function declarations (prototypes)
 	void loadMenu();
 	void mainMenu();
@@ -69,7 +70,7 @@ int main()
 	bool wantsToQuit(const int key);
 	bool isArrowKey(const int k);
 	int  getKeyPress();
-	
+
 	int lives(3);
 	int pillsLeft(8);
 	bool freeze(false), kill(false), eat(false);
@@ -96,7 +97,7 @@ int main()
 
 	//action...
 	Seed();								//seed the random number generator
-	SetConsoleTitle("Spot and Zombies Game - FoP 2017-18");
+	
 
 	initialiseGame(grid, maze, spot, zombies, freeze, kill, eat);	//initialise grid (incl. walls and spot)
 	paintGame(grid, message, lifeText, pillText);			//display game info, modified grid and messages
@@ -151,7 +152,7 @@ int main()
 
 void loadMenu() {
 
-	
+
 
 	void GetandSetScore();
 
@@ -392,7 +393,7 @@ void setMaze(char grid[][SIZEX], char maze[][SIZEX], const Item spot)
 				if (maze[k][i] == PILL) {
 					maze[k][i] = TUNNEL;
 					grid[k][i] = TUNNEL;
-					
+
 				}
 
 			}
@@ -434,7 +435,7 @@ void updateGameData(const char g[][SIZEX], Item& spot, const int key, string& me
 		if (zombieSize > 0) {
 			for (int i(0); i < zombieSize; i++) {
 				zombies.erase(zombies.begin() + 0);
-				
+
 
 			}
 		}
@@ -690,7 +691,7 @@ void paintGame(const char g[][SIZEX], string mess, string lifeText, string pillT
 	showMessage(clBlack, clWhite, 40, 0, "FoP Task 1c: February 2018");
 	showMessage(clBlack, clWhite, 40, 1, "Date: " + GetDate());
 	showMessage(clBlack, clWhite, 40, 2, "Time: " + GetTime());
-	
+
 	//display menu options available
 	showMessage(clRed, clYellow, 40, 4, "TO MOVE USE KEYBOARD ARROWS ");
 	showMessage(clRed, clYellow, 40, 5, "TO QUIT ENTER 'Q'           ");
@@ -748,10 +749,10 @@ void endProgram(string message)
 	{
 		string strScore;
 		strScore = to_string(newScore);
-		showMessage(clBlack, clDarkGreen , 40, 27, "NEW HIGHSCORE! " +strScore);
-		
+		showMessage(clBlack, clDarkGreen, 40, 27, "NEW HIGHSCORE! " + strScore);
+
 		ofstream NewScoreSet;
-		NewScoreSet.open(name+ ".txt");
+		NewScoreSet.open(name + ".txt");
 		NewScoreSet << newScore;
 		NewScoreSet.close();
 
@@ -779,7 +780,7 @@ void GetandSetScore()
 	if (CheckScoreFile(name + ".txt") == true)
 
 
-	string Stroutput;
+		string Stroutput;
 	ifstream ScoreFile;
 	ScoreFile.open(name + ".txt");
 	int output;
@@ -789,7 +790,7 @@ void GetandSetScore()
 			ScoreFile >> output;
 			//cout << "\nYour score is: " << output << "\n";
 			score = output;
-			
+
 
 		}
 	}
